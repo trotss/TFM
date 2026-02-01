@@ -1,0 +1,144 @@
+\section{Theoretical Framework and State of the Art}
+
+    \subsection{Social Penetration Theory}
+
+
+Social Penetration Theory (SPT) provides a foundational framework for understanding how individuals reveal personal information to others, a process termed \textit{self-disclosure}. Often illustrated through the "onion metaphor," the theory suggests that personality is structured in layers, and relational development involves the systematic "peeling" of these layers through communication.
+
+According to the theory, the disclosure process is defined by two primary dimensions:
+\begin{enumerate}
+    \item \textbf{Breadth:} The variety of topics covered during an interaction.
+    \item \textbf{Depth:} The level of intimacy or sensitivity of the information shared within those topics.
+\end{enumerate}
+
+In the digital era, SPT has been widely adapted to study Human-Computer Interaction (HCI). In this thesis, the theory is utilized to categorize conversational data into distinct thematic domains. By mapping user utterances to specific layers—ranging from superficial biographical data to more intimate disclosures regarding \textit{Health}, \textit{Relationships}, and \textit{Personal Development}—we can quantify the level of trust and openness established between the elderly user and the conversational agent. This theoretical grounding justifies the selection of our classification categories and provides the necessary psychological context for the subsequent unsupervised learning phase.
+
+
+\subsubsection{The Layered Structure of Disclosure}
+
+Taylor and Altman describe the structure of personality as a series of concentric layers, ranging from the most visible to the most private aspects of an individual. The transition through these layers is what defines the "penetration" process:
+
+\begin{itemize}
+    \item \textbf{Peripheral Layer:} Contains "public" or observable data. It includes biographical facts (age, origin) and surface-level preferences. In elderly-agent interactions, this corresponds to the initial exchange of greetings and general information.
+    \item \textbf{Intermediate Layer:} Encompasses personal opinions, social attitudes, and historical narratives. While still relatively safe to share, these topics reflect the individual's values and professional or social trajectory.
+    \item \textbf{Core Layer:} Represents the most intimate and sensitive domain of the self. It includes deep-seated emotions, vulnerabilities, chronic health concerns, and significant life-changing events (such as widowhood or trauma). 
+\end{itemize}
+
+The systematic movement from the peripheral to the core layer is governed by the \textit{norm of reciprocity}, although in Human-Computer Interaction (HCI), this dynamic shifts as the user perceives the agent as a non-judgmental confidant. This study specifically targets the identification of shifts from the intermediate to the core layers, as they are the most indicative of the chatbot's success in fostering a supportive environment for the elderly.
+
+
+
+The situational context and the nature of the communication channel significantly influence how self-disclosure is enacted. According to \cite{Bazarova2014}, self-disclosure in digital environments is not merely a direct reflection of relational depth but is also driven by specific functional motivations that vary across different platforms. Their research highlights that the technical affordances of a medium—such as perceived privacy and audience reach—shape the intimacy and characteristics of the shared information. 
+
+In the specific context of this study, this functional approach is crucial: the interaction between an elderly user and a chatbot represents a unique, private communication channel. This perceived intimacy may lower the "social cost" of disclosure, encouraging users to reveal information from the \textit{core layer}—such as chronic health issues or deep personal history—more freely than they would in other digital social settings.
+    
+    \subsection{Natural Language Processing and Generative AI}
+
+The evolution of Natural Language Processing (NLP) has been marked by a transition from shallow statistical analysis to deep semantic understanding. In the preliminary stages of this study, various traditional NLP libraries were tested, such as \textit{spaCy} for syntactic parsing, \textit{NLTK} and \textit{TextBlob} for basic text processing, and \textit{pysentimiento} for sentiment and emotion detection. 
+
+While these tools provide a solid baseline, they encounter two primary obstacles in the context of this research. First, their performance is notably superior in English-centric datasets, whereas our corpus consists of spontaneous Spanish dialogues, introducing complexities related to syntax, slang, and cultural nuances. Second, traditional models often operate at a surface level, struggling to capture the complex thematic layers defined by Social Penetration Theory.
+
+To overcome these limitations, we transitioned to the use of Large Language Models (LLMs), specifically the \textbf{Gemma-2-9b-it} model. Its architecture is particularly well-suited for this thesis due to its advanced reasoning capabilities and its ability to process Spanish with high semantic fidelity. 
+    
+        \subsubsection{Evolution of LLMs: The Gemma-2-9b-it Model}
+
+The landscape of Natural Language Processing has been redefined by the advent of Large Language Models (LLMs) that provide high-tier reasoning within accessible hardware requirements. The \textbf{Gemma-2-9b-it} model stands out as a state-of-the-art open-model solution. As detailed by the \cite{https://doi.org/10.48550/arxiv.2408.00118}, the Gemma 2 family introduces architectural optimizations that allow smaller-scale models to outperform significantly larger predecessors in benchmarks involving common sense and reasoning.
+
+In this thesis, the choice of the 9B variant is justified by a dual constraint: hardware limitations and dataset scale. The experimental environment is equipped with an \textbf{NVIDIA A10 GPU}. While this hardware is capable of handling sophisticated inference, the use of larger-scale architectures would result in prohibitive inference times given the volume of our dataset, which comprises \textbf{16,000 sessions}. Thus, Gemma-2-9b-it was selected as it offers the highest "performance-per-parameter" ratio available, ensuring that the processing of the entire Spanish corpus remains computationally feasible without sacrificing semantic depth.
+
+Moreover, the model's instruction-tuned (\textit{it}) capabilities are paramount for the feature extraction phase. Research by \cite{10796809} highlights the efficiency of Gemma-based models in following complex prompts and recovering nuanced information from text. This is a critical factor for our study, as the model must interpret the emotional and thematic layers of elderly users' speech in Spanish—a language that often presents dialectal variations and informal structures that traditional, non-generative NLP tools fail to capture accurately.
+
+
+
+        
+        \subsubsection{LLMs as Feature Extractors in Social Computing}
+
+The field of Social Computing relies on the ability to quantify human behavior through computational lenses. Historically, this has been achieved via programmatic feature extraction, which utilizes deterministic scripts to derive surface-level metrics. In this research, these programmatic features include interaction frequency, average message length, and the identification of proper nouns. While computationally inexpensive and objective, these metrics act only as proxies for social behavior; they fail to capture the underlying meaning or the emotional weight of the discourse.
+
+Large Language Models (LLMs) represent a significant advancement by enabling \textit{Semantic Feature Extraction}. In this paradigm, the model functions as a sophisticated encoder that transforms unstructured text into high-level categorical or numerical scores based on complex rubrics. This study utilizes Gemma-2-9b-it to extract features that were previously inaccessible to traditional NLP, such as:
+
+\begin{itemize}
+    \item The sensitivity level of the discussed topics (e.g., political views, health data).
+    \item The thematic alignment with the layers of Social Penetration Theory.
+    \item The degree of personal revelation within a specific conversational context.
+\end{itemize}
+
+The synergy between programmatic and LLM-based features is critical for a comprehensive analysis. Programmatic features provide the structural "skeleton" of the conversation, while LLM-derived features provide the "flesh" or semantic depth. This dual-layered approach allows us to feed the subsequent clustering algorithm with a feature vector that encapsulates both the quantitative dynamics of the interaction and the qualitative nature of the user's self-disclosure.
+        
+    \subsection{Unsupervised Machine Learning}
+
+Unsupervised machine learning comprises a set of techniques designed to identify underlying structures and patterns in datasets that lack explicit labels. In the context of this thesis, where the objective is to categorize the depth of 16,000 spontaneous interactions without a pre-existing \textit{Gold Standard}, this paradigm provides a scalable and objective framework for behavioral discovery.
+
+Following the comprehensive review by \cite{Naeem2023}, unsupervised learning is fundamental for exploratory data analysis, as it allows for the identification of natural groupings based on feature proximity in a multi-dimensional space. The utility of this approach in social computing lies in its ability to handle high-dimensional semantic vectors—such as those extracted via LLMs—and organize them into interpretable clusters without human bias influencing the initial grouping process.
+
+
+
+A critical component of unsupervised learning is the evaluation of the resulting data partitions. Since there is no external label to compare against, \cite{Naeem2023} emphasize the use of internal validation criteria to measure clustering quality:
+\begin{itemize}
+    \item \textbf{Cohesion:} Measures the degree to which elements within a cluster are similar to one another.
+    \item \textbf{Separation:} Evaluates the distinctness between different clusters to ensure they represent unique categories.
+    \item \textbf{Validation Metrics:} Indicators such as the \textit{Silhouette Score} (measuring point-to-cluster assignment quality) and the \textit{Davies-Bouldin Index} (evaluating the ratio of within-cluster to between-cluster distances) are utilized to assess the mathematical validity of the model.
+\end{itemize}
+
+This theoretical grounding justifies the use of clustering as a primary tool for mapping conversational data to the layers of Social Penetration Theory, providing the necessary metrics to evaluate whether the extracted features are capable of forming stable and meaningful representations of user behavior.
+    
+        
+\subsubsection{K-Means Clustering and Evaluation Metrics}
+
+K-Means is an unsupervised learning technique designed to partition $n$ observations into $K$ clusters, where each observation belongs to the group with the nearest mean (centroid). The mathematical objective is to minimize the \textit{Within-Cluster Sum of Squares} (WCSS):
+
+\begin{equation}
+    J = \sum_{j=1}^{K} \sum_{x_i \in C_j} \|x_i - \mu_j\|^2
+\end{equation}
+
+To evaluate the validity of the partition and select the optimal number of clusters, this study employs the following metrics and heuristics based on the review by \cite{Naeem2023}:
+
+\begin{itemize}
+    \item \textbf{Elbow Method:} Identification of the inflection point in the WCSS curve.
+    \item \textbf{Silhouette Score:} A measure of cohesion and separation ranging from -1 to 1.
+    \item \textbf{Calinski-Harabasz Index:} The ratio of the sum of between-clusters scatter and within-cluster scatter.
+    \item \textbf{Davies-Bouldin Index:} The average maximum similarity index of each cluster with another; lower values signify better separation.
+    \item \textbf{Gap Statistics:} A statistical technique that compares cluster dispersion with a uniform reference distribution.
+\end{itemize}
+
+% --- Tabla de Métricas para el Estado del Arte ---
+\begin{table}[htbp]
+\centering
+\caption{Summary of Clustering Evaluation Metrics and Optimal Selection Criteria.}
+\label{tab:clustering_metrics_simple}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Metric / Method} & \textbf{Optimal Value Criterion} \\ \midrule
+Elbow Method             & "Knee" or Inflection point       \\
+Silhouette Score         & Maximize ($\to 1$)               \\
+Calinski-Harabasz Index  & Maximize                         \\
+Davies-Bouldin Index     & Minimize                         \\
+Gap Statistics           & Maximize                         \\
+GMM - BIC                & Minimize                         \\
+DBSCAN                   & Density-based (Variable)         \\ \bottomrule
+\end{tabular}
+\end{table}
+% ------------------------------------------------
+
+Furthermore, the study considers \textbf{Gaussian Mixture Models (GMM)} evaluated through the \textbf{Bayesian Information Criterion (BIC)} to balance likelihood and parsimony. Finally, we contrast these with \textbf{DBSCAN}, a density-based approach. While DBSCAN is effective at identifying outliers, it may struggle with the varying densities of semantic layers, reinforcing the choice of a centroid-based approach for the thematic categorization required by Social Penetration Theory.
+
+
+
+
+
+
+
+        
+    \subsection{Ethics and Privacy in Sensitive Data Analysis}
+
+    The analysis of natural language in interactions with elderly users presents significant challenges regarding data privacy and ethical handling. This study implements a "Privacy by Design" approach to ensure compliance with security standards and the protection of sensitive information.
+
+\begin{itemize}
+    \item \textbf{Local Infrastructure:} A critical security measure in this research is the use of a localized inference pipeline. By deploying the \textit{Gemma-2-9b-it} model on an internal \textbf{NVIDIA A10} server, the need for third-party Cloud APIs was eliminated. This prevents the transmission of unstructured conversational data to external entities, ensuring that the processing remains within a secure and audited environment.
+    
+    \item \textbf{Data Anonymization and Traceability:} The dataset is structured around unique session and user identifiers (UUIDs), devoid of any direct personal identifiers such as names or contact information. Although no automated Named Entity Recognition (NER) pre-processing was applied to the raw text, the risk of re-identification is mitigated by the restricted access to the dataset and the fact that metadata is limited to technical variables (e.g., timestamps, platform type, and game modes).
+    
+    \item \textbf{Commitment and Compliance:} All researchers involved in this project have signed a Non-Disclosure Agreement (NDA) to guarantee the confidentiality of the interactions. The ethical responsibility regarding the General Data Protection Regulation (GDPR) and the management of user consent remains with the providing entity, which authorized the use of this data for research and development purposes.
+\end{itemize}
+
+This framework ensures that the pursuit of technical innovation in social computing does not compromise the fundamental rights of a vulnerable demographic.

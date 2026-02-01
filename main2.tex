@@ -1,0 +1,68 @@
+\documentclass[%
+    a4paper,                % Tamaño de papel A4.
+    twoside,                % Páginas pares e impares con diseño diferenciado.
+    12pt,                   % Tamaño de fonte. Non inferior a 12 puntos. 
+]{report}                     % Cambiado a "book" para soportar \frontmatter, \mainmatter y \backmatter
+
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{tfmteleco}      % Tu paquete personalizado de la escuela
+\usepackage{booktabs}       % Necesario para las tablas profesionales que generamos
+
+\title{ANALYSIS OF CONVERSATIONAL DATA FROM
+HEALTH-FOCUSED CHATBOTS USING NATURAL
+LANGUAGE PROCESSING TECHNIQUES}
+\author{Adrián Bernardo Barrero}
+\titores{Francisco Javier González Castaño, Anxo Gesto Gayoso}
+\curso{2025/2026}
+
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% --- FRONTMATTER: Numeración romana (i, ii, iii...) ---
+\frontmatter
+
+\maketitle
+\clearemptydoublepage
+
+\include{acknowledgements}
+\clearemptydoublepage
+
+% El Abstract se incluye aquí, antes del índice
+\input{abstract}
+\clearemptydoublepage
+
+\tableofcontents
+\clearemptydoublepage
+
+\listoffigures
+\clearemptydoublepage
+
+\listoftables
+\clearemptydoublepage
+
+% --- MAINMATTER: Numeración arábiga (1, 2, 3...) ---
+\mainmatter
+
+\input{sections/1introduccion}
+\input{sections/2estado-arte}
+\input{sections/3metodologia}
+\input{sections/4implementation}
+\input{sections/5conclusion}
+\input{sections/6validation}
+\input{sections/7futurework}
+
+% --- BACKMATTER: Bibliografía ---
+\backmatter
+
+\bibliographystyle{IEEEtran} 
+\nocite{*}
+\bibliography{bibliography}
+\clearemptydoublepage
+
+% --- APÉNDICES ---
+\appendix
+\include{appendix}
+
+\end{document}

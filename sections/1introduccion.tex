@@ -1,0 +1,53 @@
+\section{Introduction}
+    \subsection{Motivation and Context}
+
+The progressive aging of the global population has led to a significant increase in social isolation among senior citizens. To address this, AI-driven conversational agents have emerged as a scalable tool for providing companionship and monitoring. However, the effectiveness of these interactions depends on the user's willingness to reveal personal information—a process known as self-disclosure.
+ \vspace{2mm} \newline
+In the field of psichology, understanding how and when an elderly user shares sensitive details (health, memories, or emotions) is critical. This project is motivated by the need to transform unstructured dialogue data from over 16,000 sessions into actionable insights. By applying Social Penetration Theory and Large Language Models (LLMs), we aim to establish a robust methodology to measure this trust-building process. From a telecommunications engineering perspective, this work addresses the challenge of extracting high-level semantic features to detect vulnerability and improve the quality of human-machine interaction in sensitive contexts.
+
+
+    \subsection{Problem Statement: Automated Self-Disclosure Detection}
+
+Despite the proliferation of conversational agents for elderly care, there is a lack of robust, automated methods to quantify the emotional and personal depth of these interactions. While current Natural Language Processing (NLP) techniques can handle intent recognition or sentiment analysis, they often fail to capture the nuances of self-disclosure.
+\vspace{2mm} \newline
+The core challenge lies in the unstructured nature of dialogue data and the subjective complexity of what constitutes a "sensitive" or "deep" revelation. Existing approaches often rely on rigid keyword matching or general-purpose sentiment scores, which are insufficient for identifying the thematic layers (health, relationships, personal history) defined by social psychology. Furthermore, the use of Large Language Models (LLMs) as evaluators introduces a new problem of methodological reliability: there is no consensus on whether binary classification, multi-level rubrics, or subtopic aggregation yields the most accurate representation of user trust. Therefore, this research addresses the need for a validated, theory-driven pipeline to transform raw conversational data into a structured metric of self-disclosure in the context of elderly-AI interaction.
+
+
+
+
+
+
+    
+    \subsection{Research Objectives}
+
+The primary objective of this thesis is to design and evaluate a methodological pipeline for the automated detection and classification of self-disclosure in dialogues between elderly users and conversational AI, leveraging Large Language Models (LLMs) and unsupervised learning techniques.
+
+To achieve this overarching goal, the following specific objectives have been established:
+
+\begin{description}
+    \item[O1: Feature Extraction and Scoring.] To implement and compare different scoring strategies— specifically binary versus rubric-based (0-5) scales—using the \textit{Gemma-2-9b-it} model to extract high-level semantic features from 16,000 conversational sessions.
+    \item[O2: Methodological Comparison of Classification.] To evaluate the effectiveness of direct category classification versus a bottom-up approach that utilizes subtopic aggregation through the application of \textit{Hadamard products}.
+    \item[O3: Unsupervised Pattern Identification.] To perform clustering (\textit{K-Means}) on the extracted features to identify thematic domains based on Social Penetration Theory, justifying the implementation of an $N+1$ cluster architecture.
+    \item[O4: Empirical Validation.] To validate the model's performance against a human-annotated Gold Standard of 120 sessions, measuring inter-rater reliability via \textit{Krippendorff’s Alpha} and assessing classification accuracy through \textit{F1-score} and \textit{Matthews Correlation Coefficient (MCC)}.
+\end{description}
+        
+    \subsection{Thesis Structure}
+
+
+    This document is structured into seven chapters that guide the reader through the theoretical, technical, and evaluative phases of the research:
+
+\begin{itemize}
+    \item \textbf{Chapter 2: Theoretical Framework and State of the Art} explores the psychological foundations of Social Penetration Theory and the technical landscape of Large Language Models (LLMs) and unsupervised learning.
+    
+    \item \textbf{Chapter 3: Dataset Description and Preprocessing} details the characteristics of the conversational dataset and the protocols followed to ensure data privacy and RGPD compliance.
+    
+    \item \textbf{Chapter 4: Methodology} constitutes the technical core of the thesis, describing the experimental design for feature extraction, the mathematical application of the \textit{Hadamard product} for subtopic aggregation, and the $K$-Means clustering configuration.
+    
+    \item \textbf{Chapter 5: Analysis of Results} evaluates the outcome of the clustering process, providing a thematic characterization of the identified self-disclosure domains.
+    
+    \item \textbf{Chapter 6: Validation and Evaluation} assesses the model's performance by comparing it against an expert-annotated Gold Standard, using metrics such as Krippendorff’s Alpha and MCC.
+    
+    \item \textbf{Chapter 7: Conclusions and Future Work} synthesizes the findings, discusses the limitations of the study, and outlines potential applications in the field of elderly care.
+\end{itemize}
+
+\newpage

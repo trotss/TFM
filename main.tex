@@ -1,0 +1,60 @@
+\documentclass[%
+    a4paper,                % Tamaño de papel A4.
+    twoside,                % Páxinas pares e impares con deseño diferenciado.
+    12pt,                   % Tamaño de fonte. Non inferior a 12 puntos. 
+]{article}                     % Baseado no tipo "book" 
+
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{tfmteleco}
+\usepackage{booktabs}
+
+\title{ANALYSIS OF CONVERSATIONAL DATA FROM
+HEALTH-FOCUSED CHATBOTS USING NATURAL
+LANGUAGE PROCESSING TECHNIQUES}
+\author{Adrián Bernardo Barrero}
+\titores{Francisco Javier González Castaño, Anxo Gesto Gayoso}
+\curso{2025/2026}
+
+\setcounter{tocdepth}{2}
+\begin{document}
+\frontmatter
+
+\maketitle
+\clearemptydoublepage
+
+\include{acknowledgements}
+
+\tableofcontents
+\clearemptydoublepage
+
+\listoffigures
+\clearemptydoublepage
+
+\listoftables
+\clearemptydoublepage
+
+\mainmatter
+\input{abstract}
+\input{sections/1introduccion}
+\input{sections/2estado-arte}
+\input{sections/3metodologia}
+\input{sections/4implementation}
+\input{sections/5conclusion}
+\input{sections/6validation}
+\input{sections/7futurework}
+
+\backmatter
+
+\bibliographystyle{IEEEtran} 
+\nocite{*}
+\newpage
+\bibliography{bibliography}
+
+\clearemptydoublepage
+
+\appendix
+
+\include{appendix}
+
+\end{document}

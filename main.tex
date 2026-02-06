@@ -8,6 +8,67 @@
 \usepackage{enumitem}
 \usepackage{tfmteleco}
 \usepackage{booktabs}
+\usepackage{multibib}
+\newcites{consulted}{Consulted Bibliography}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+
+% --- CONFIGURACIÓN DEL GLOSARIO ---
+\usepackage[acronym, toc]{glossaries} 
+\makeglossaries
+% Cargamos las definiciones desde tu archivo externo
+\loadglsentries{glosario.tex}
+% ----------------------------------
+
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{gray!10},
+    showstringspaces=false,
+    string=[db]{"},
+    stringstyle=\color{green!50!black},
+    morestring=[s][\color{black}]{\ \ "}{":},
+    keywordstyle=\color{blue},
+    keywords={true,false,null},
+}
+
+
+%%%%%%%%
+\makeatletter
+
+% Frontmatter: sin numeración
+\newcommand{\frontmatter}{%
+  \setcounter{section}{0}%
+  \setcounter{subsection}{0}%
+  \renewcommand{\thesection}{}%
+}
+
+% Mainmatter: numeración normal 1, 2, 3...
+\newcommand{\mainmatter}{%
+  \setcounter{section}{0}%
+  \renewcommand{\thesection}{\arabic{section}}%
+}
+
+% Backmatter: sin numeración
+\newcommand{\backmatter}{%
+  \setcounter{section}{0}%
+  \renewcommand{\thesection}{}%
+}
+
+\makeatother
+
+%%%%%%%%%
+
+
+
+
+
 
 \title{ANALYSIS OF CONVERSATIONAL DATA FROM
 HEALTH-FOCUSED CHATBOTS USING NATURAL
@@ -34,22 +95,35 @@ LANGUAGE PROCESSING TECHNIQUES}
 \listoftables
 \clearemptydoublepage
 
+% --- IMPRESIÓN DEL GLOSARIO ---
+% Se suele colocar en la frontmatter, después de las listas de tablas/figuras
+\glsaddall
+\printglossary[title=Glossary, toctitle=Glossary]
+\clearemptydoublepage
+% ------------------------------
+
+
 \mainmatter
 \input{abstract}
 \input{sections/1introduccion}
 \input{sections/2estado-arte}
 \input{sections/3metodologia}
-\input{sections/4implementation}
-\input{sections/5conclusion}
-\input{sections/6validation}
-\input{sections/7futurework}
+\input{sections/4analisis}
+\input{sections/5futurework}
 
 \backmatter
 
-\bibliographystyle{IEEEtran} 
-\nocite{*}
 \newpage
-\bibliography{bibliography}
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography} % Aquí aparecerá solo lo que citaste con \cite{}
+
+% --- Sección 2: Bibliografía consultada ---
+\newpage
+\bibliographystyleconsulted{IEEEtran}
+\bibliographyconsulted{bibliography} % Usa el mismo archivo .bib
+\nociteconsulted{*}
+
+
 
 \clearemptydoublepage
 

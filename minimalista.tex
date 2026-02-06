@@ -1,0 +1,89 @@
+\documentclass[%
+    a4paper,                % Tamaño de papel A4.
+    twoside,                % Páxinas pares e impares con deseño diferenciado.
+    12pt,                   % Tamaño de fonte. Non inferior a 12 puntos. 
+]{article}                     % Baseado no tipo "book" 
+
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{tfmteleco}
+\usepackage{booktabs}
+\usepackage{multibib}
+\newcites{consulted}{Consulted Bibliography}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{gray!10},
+    showstringspaces=false,
+    string=[db]{"},
+    stringstyle=\color{green!50!black},
+    morestring=[s][\color{black}]{\ \ "}{":},
+    keywordstyle=\color{blue},
+    keywords={true,false,null},
+}
+
+
+%%%%%%%%
+\makeatletter
+
+% Frontmatter: sin numeración
+\newcommand{\frontmatter}{%
+  \setcounter{section}{0}%
+  \setcounter{subsection}{0}%
+  \renewcommand{\thesection}{}%
+}
+
+% Mainmatter: numeración normal 1, 2, 3...
+\newcommand{\mainmatter}{%
+  \setcounter{section}{0}%
+  \renewcommand{\thesection}{\arabic{section}}%
+}
+
+% Backmatter: sin numeración
+\newcommand{\backmatter}{%
+  \setcounter{section}{0}%
+  \renewcommand{\thesection}{}%
+}
+
+\makeatother
+
+%%%%%%%%%
+
+
+
+
+
+
+\title{ANALYSIS OF CONVERSATIONAL DATA FROM
+HEALTH-FOCUSED CHATBOTS USING NATURAL
+LANGUAGE PROCESSING TECHNIQUES}
+\author{Adrián Bernardo Barrero}
+\titores{Francisco Javier González Castaño, Anxo Gesto Gayoso}
+\curso{2025/2026}
+
+\setcounter{tocdepth}{2}
+\begin{document}
+
+\mainmatter
+
+\input{sections/1introduccion}
+\input{sections/2estado-arte}
+\input{sections/3metodologia}
+\input{sections/4analisis}
+\input{sections/5futurework}
+
+\backmatter
+
+\newpage
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography} % Aquí aparecerá solo lo que citaste con \cite{}
+
+
+\end{document}

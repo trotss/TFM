@@ -44,7 +44,20 @@ To overcome these limitations, we transitioned to the use of Large Language Mode
 
 The landscape of Natural Language Processing has been redefined by the advent of Large Language Models (LLMs) that provide high-tier reasoning within accessible hardware requirements. The \textbf{Gemma-2-9b-it} model stands out as a state-of-the-art open-model solution. As detailed by the \cite{https://doi.org/10.48550/arxiv.2408.00118}, the Gemma 2 family introduces architectural optimizations that allow smaller-scale models to outperform significantly larger predecessors in benchmarks involving common sense and reasoning.
 
-In this thesis, the choice of the 9B variant is justified by a dual constraint: hardware limitations and dataset scale. The experimental environment is equipped with an \textbf{NVIDIA A10 GPU}. While this hardware is capable of handling sophisticated inference, the use of larger-scale architectures would result in prohibitive inference times given the volume of our dataset, which comprises \textbf{16,000 sessions}. Thus, Gemma-2-9b-it was selected as it offers the highest "performance-per-parameter" ratio available, ensuring that the processing of the entire Spanish corpus remains computationally feasible without sacrificing semantic depth.
+In this thesis, the choice of the 9B variant is justified by a dual constraint: hardware limitations and dataset scale. The model was deployed in its native precision (\textit{bfloat16}) to ensure maximum semantic fidelity, as no quantization was applied during loading process from the Hugging Face Hub. The experimental environment is equipped with an \textbf{NVIDIA A10 GPU} (24GB). The memory footprint $M$ for an LLM is a function of its parameter count $P$ and the precision $B$ in bytes:
+
+Given that $P \approx 9.2 \times 10^9$ and $B = 2$ bytes (16 bits), we obtain:
+
+\begin{equation}
+    M_{weights} \approx 9.2 \text{ B} \times 2 \text{ bytes} = 18.4 \text{ GB}
+\end{equation}
+The remaining VRAM is utilized for the \textit{Key-Value (KV) Cache} and activation tensors during \gls{inference}. This leaves a safety margin of approximately 5.6 GB, ensuring stable processing of long conversational contexts without \textit{Out-of-Memory} (OOM) errors.
+
+While this hardware is capable of handling sophisticated inference, the use of larger-scale architectures would result in prohibitive inference times given the volume of our dataset, which comprises \textbf{16,000 sessions}. Thus, Gemma-2-9b-it was selected as it offers the highest "performance-per-parameter" ratio available, ensuring that the processing of the entire Spanish corpus remains computationally feasible without sacrificing semantic depth.
+
+To ensure structural reliability, the \gls{inference} process was constrained by a \textbf{maximum output token limit}. This restriction is possible due to a \textbf{deterministic} output that strictly follows the requested JSON format.
+
+In terms of computational throughput, the processing of the entire dataset exhibited a significant range of latency. Depending on the complexity of the prompt and the specific experiment (A, B, or C), the execution time fluctuated between \textbf{8 hours and 2 days}. These durations reflect the balance between the depth of semantic analysis and the high-volume processing demands of the 2,174 unique user sessions.
 
 Moreover, the model's instruction-tuned (\textit{it}) capabilities are paramount for the feature extraction phase. Research by \cite{10796809} highlights the efficiency of Gemma-based models in following complex prompts and recovering nuanced information from text. This is a critical factor for our study, as the model must interpret the emotional and thematic layers of elderly users' speech in Spanish—a language that often presents dialectal variations and informal structures that traditional, non-generative NLP tools fail to capture accurately.
 
@@ -59,8 +72,8 @@ Large Language Models (LLMs) represent a significant advancement by enabling \te
 
 \begin{itemize}
     \item The sensitivity level of the discussed topics (e.g., political views, health data).
-    \item The thematic alignment with the layers of Social Penetration Theory.
-    \item The degree of personal revelation within a specific conversational context.
+    \item The thematic alignment with the layers of Social Penetration Theory (not used).
+    \item The degree of personal revelation within a specific conversational context (not used).
 \end{itemize}
 
 The synergy between programmatic and LLM-based features is critical for a comprehensive analysis. Programmatic features provide the structural "skeleton" of the conversation, while LLM-derived features provide the "flesh" or semantic depth. This dual-layered approach allows us to feed the subsequent clustering algorithm with a feature vector that encapsulates both the quantitative dynamics of the interaction and the qualitative nature of the user's self-disclosure.
@@ -124,10 +137,40 @@ Furthermore, the study considers \textbf{Gaussian Mixture Models (GMM)} evaluate
 
 
 
+\subsubsection{Dimensionality Reduction and Visualization}
+
+%The feature vectors extracted from the \textit{Gemma-2-9b-it} model reside in a high-dimensional latent space, which can hinder the performance of centroid-based clustering. To address this, two complementary techniques are integrated into the analytical pipeline: Principal Component Analysis (PCA) and t-Distributed Stochastic Neighbor Embedding (t-SNE).
+
+%\textbf{Principal Component Analysis (PCA)} is applied as a deterministic dimensionality reduction step. By performing an eigendecomposition of the covariance matrix, PCA projects the semantic features into a lower-dimensional space that retains the highest possible variance. This reduction not only decreases the computational burden on the K-Means algorithm but also filters out redundant information, emphasizing the primary dimensions of user self-disclosure.
+
+%hile PCA preserves global variance, \textbf{t-SNE} is employed for its superior ability to represent local relationships in a visualizable 2D space. t-SNE converts similarities between data points into joint probabilities and seeks to minimize the Kullback-Leibler divergence between the original and the low-dimensional distributions. In this research, t-SNE serves as a qualitative validation tool, allowing for the visual inspection of the clusters and ensuring that the mathematical partitions reflect coherent patterns of interaction between the elderly users and the chatbot.
+
+
+The feature vectors extracted from the \textit{Gemma-2-9b-it} model are processed within their original high-dimensional latent space to ensure the theoretical integrity of the SPT categories. To avoid the loss of granular information, \textbf{K-Means clustering is applied directly to the extracted features} without prior reduction. Consequently, dimensionality reduction techniques are used strictly for \textit{post-hoc} analysis and visualization.
+
+\textbf{Principal Component Analysis (PCA)} is implemented as a deterministic validation tool. By projecting the dataset into its primary eigenvectors, PCA allows for the inspection of the global data structure and the verification of cluster separability based on maximum variance.
+
+Furthermore, \textbf{t-Distributed Stochastic Neighbor Embedding (t-SNE)} is utilized to represent complex, non-linear local relationships in a 2D plane. In this pipeline, \textbf{t-SNE serves exclusively as a qualitative visual aid}. It is crucial to denote that neither PCA nor t-SNE are used to feed the clustering algorithm; their role is to provide a human-interpretable validation of the high-dimensional mathematical partitions, ensuring they reflect coherent interaction patterns.
 
 
 
+\begin{table}[htbp]
+\centering
+\caption{Comparison between PCA and t-SNE for Dimensionality Reduction.}
+\label{tab:pca_vs_tsne}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Feature}          & \textbf{PCA}                  & \textbf{t-SNE}                 \\ \midrule
+\textbf{Type}             & Linear                        & Non-linear                     \\
+\textbf{Data Preservation}& Global structure (Variance)   & Local structure (Similarity)   \\
+\textbf{Computational Cost}& Low / Efficient               & High / Iterative               \\
+\textbf{Determinism}      & Deterministic                 & Stochastic (Non-deterministic) \\
+\textbf{Output}           & Principal Components          & Low-dimensional clusters       \\
+\textbf{Main Use Case}    & Noise reduction / Processing  & Data visualization             \\ \bottomrule
+\end{tabular}
+\end{table}
 
+\newpage
         
     \subsection{Ethics and Privacy in Sensitive Data Analysis}
 
@@ -142,3 +185,20 @@ Furthermore, the study considers \textbf{Gaussian Mixture Models (GMM)} evaluate
 \end{itemize}
 
 This framework ensures that the pursuit of technical innovation in social computing does not compromise the fundamental rights of a vulnerable demographic.
+
+
+\subsection{Work Hypotesis}
+
+\label{sec:hypothesis}
+
+The present research is built upon the premise that current nlp frameworks for elderly-chatbot interactions often overlook the psychological depth and the temporal evolution of human relationships. By integrating SPT with state-of-the-art Generative Artificial Intelligence (GAI), this project proposes a shift from purely functional dialogue analysis to a multidimensional evaluation of emotional intimacy.
+
+The central hypotheses guiding this work are as follows:
+
+\begin{itemize}
+    \item \textbf{H1: Semantic Depth through SPT.} The application of Social Penetration Theory to conversational datasets involving elderly users will reveal patterns of self-disclosure that standard nlp metrics fail to capture. This represents a pioneer application of spt within an nlp framework specifically tailored for the elderly population.
+    
+    \item \textbf{H2: Superiority of GAI-ML Hybridization.} A hybrid approach---utilizing LLMs for granular subtopic extraction and traditional Machine Learning for clustering---will provide a more robust and interpretable characterization of user profiles than previous precedents.
+    
+    \item \textbf{H3: Resilience of the Gating Mechanism.} The implementation of a \textbf{Hadamard Product} between rubric-based intensity and binary detection (\textit{Experiment A}) will significantly reduce semantic noise, providing a high-fidelity representation of the user's latent disclosure space.
+\end{itemize}

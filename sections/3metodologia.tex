@@ -1,90 +1,7 @@
 \section{Methodology: Experimental Design}
 
-\subsection{Data Source and preproccesing: 16,301 Conversations with Elderly Users}
-
-The initial stage of this research involved the curation of a large-scale conversational corpus. The raw data comprised approximately 30,561 sessions; however, to ensure the reliability of the self-disclosure analysis, a multi-stage preprocessing pipeline was applied to refine the dataset.
-
-\begin{enumerate}
-    \item \textbf{Filtering of Ludic Interactions:} Messages categorized under the \texttt{intent == games} label (e.g., riddles, word searches) were removed. These interactions are governed by rigid game logic rather than spontaneous social exchange, making them unsuitable for studying natural self-revelation.
-    \item \textbf{System Message Cleaning:} Technical artifacts, such as the automated response \texttt{(pensando...)} generated during system latency, were purged. This ensures that the subsequent Natural Language Processing (NLP) tasks are performed strictly on human and intentional bot-generated content.
-    \item \textbf{Minimal Interaction Constraint:} A threshold was set to exclude sessions with fewer than five total exchanges (human-bot turns). This criterion ensures that only sessions with enough conversational "mass" to exhibit depth are included in the study.
-\end{enumerate}
-
-
-
-As a result of this process, the final dataset was reduced to \textbf{16,301 valid sessions}. For data management purposes, each session was mapped from a composite identifier \newline \texttt{'\{user\_id\}\_\{session\_id\}.csv'}. This structured approach allows for efficient feature engineering while maintaining the integrity of the original conversational flows.
-
-
-Beyond the total number of sessions, the dataset comprises \textbf{2,174 unique users}. The relationship between users and their respective number of interactions provides insight into the engagement patterns of the elderly population with the AI system.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/user_dist.png}
-    \caption{Distribution of the number of conversations per user (Top 20 most active users).}
-    \label{fig:user_dist}
-\end{figure}
-
-As shown in Figure \ref{fig:user_dist}, there is a significant variance in user activity. This concentration of data in the most active users allows for a robust analysis of conversational depth, as these long-term interactions are more likely to transition from superficial "cliché" exchanges to more intimate layers of disclosure.
-
-    \newpage
-    \subsection{Programmatic Feature Engineering}
-
-In addition to the semantic evaluation, a quantitative characterization of the sessions was performed through programmatic feature engineering. This process involved the extraction of objective metrics that describe the structural, temporal, and emotional dynamics of the human-computer interaction. While the semantic layers focus on \textit{what} is being said, these features provide crucial context on \textit{how} the interaction unfolds.
-
-The engineered features can be categorized into three main groups:
-\begin{itemize}
-    \item \textbf{Structural and Temporal:} Metrics such as \texttt{session\_duration} and \texttt{n\_user\_interactions} quantify the level of engagement and the length of the conversational exchange.
-    \item \textbf{Linguistic Complexity:} Features like \texttt{len\_user\_interactions} and \texttt{n\_proper\_nouns} serve as proxies for the richness of the discourse, where a higher density of proper nouns often correlates with the mention of specific personal entities or anecdotes.
-    \item \textbf{Affective Analysis:} Sentiment scores (\texttt{pos}, \texttt{neu}, \texttt{neg}) were calculated for both the user and the bot. Comparing these allows for the assessment of emotional reciprocity, a key component in deepening social penetration.
-\end{itemize}
-
-\begin{table}[htbp]
-\centering
-\caption{Description of Programmatically Engineered Features.}
-\label{tab:programmatic_features}
-\begin{tabular}{@{}ll@{}}
-\toprule
-\textbf{Feature Name} & \textbf{Description}  \\ \midrule
-\texttt{session\_duration} & Total duration of the session in seconds or minutes. \\
-\texttt{n\_user\_interactions} & Total number of interactions initiated by the user. \\
-\texttt{percentage\_user\_interactions} & User's share of interactions relative to the session total.  \\
-\texttt{len\_user\_interactions} & Average length of the user's messages/inputs. \\
-\texttt{n\_proper\_nouns} & Number of proper nouns detected in the conversation.\\
-\texttt{user\_sent\_pos} & Positive sentiment score in the user's messages.\\
-\texttt{user\_sent\_neu} & Neutral sentiment score in the user's messages. \\
-\texttt{user\_sent\_neg} & Negative sentiment score in the user's messages. \\
-\texttt{bot\_sent\_pos} & Positive sentiment score in the bot's responses. \\
-\texttt{bot\_sent\_neu} & Neutral sentiment score in the bot's responses. \\
-\texttt{bot\_sent\_neg} & Negative sentiment score in the bot's responses. \\ \bottomrule
-\end{tabular}
-\end{table}
-    \subsection{Operationalizing Self-Disclosure Categories}
-
-We have defined three primary categories that aggregate various conversational themes. These categories serve as proxies for the breadth and depth of the users' "social personality" layers:
-
-\begin{itemize}
-    \item \textbf{Category 1: Health and Well-being.} Focuses on the most immediate and vital concerns of the elderly population. It includes \textit{Mental and Emotional Health} as well as \textit{Physical Health and Addictions}.
-    \item \textbf{Category 2: Interpersonal Relationships.} Maps the user's social circle and support system, encompassing \textit{Family Dynamics} and \textit{Affective/Romantic Relationships}.
-    \item \textbf{Category 3: History and Personal Development.} Represents the deepest layers of the "onion," covering \textit{Personal Goals and Failures}, \textit{Traumas and Adversity}, and \textit{Professional Life and Career}.
-\end{itemize}
-
-\begin{table}[htbp]
-\centering
-\caption{Operationalized SPT Categories and Sub-themes.}
-\label{tab:spt_categories}
-\begin{tabular}{@{}ll@{}}
-\toprule
-\textbf{Main Category} & \textbf{Sub-themes / Dimensions} \\ \midrule
-\textbf{C1: Health \& Well-being} & Mental Health, Emotional State, Physical Health, Addictions \\
-\textbf{C2: Interpersonal Rel.} & Family Dynamics, Affective Relationships \\
-\textbf{C3: Personal Development} & Goals \& Failures, Traumas \& Adversity, Career History \\ \bottomrule
-\end{tabular}
-\end{table}
-
-This categorization allows the model to assign a numerical score to each session based on the presence and intensity of these topics, effectively creating a "disclosure profile" for every interaction.
-
     
-    \subsection{LLM-Based Feature Extraction (Gemma-2-9b-it)}
+    \subsection{LLM-Based Feature Extraction}
 
 The semantic characterization of the corpus was approached through three distinct experiments. These setups aim to compare how different levels of abstraction and scoring methods impact the model's ability to cluster users according to the Social Penetration Theory.
 
@@ -310,6 +227,164 @@ Response must be ONLY a valid JSON object.
 \end{lstlisting}
 
 
+
+
+     \subsection{Ethics and Privacy in Sensitive Data Analysis}
+
+    The analysis of natural language in interactions with elderly users presents significant challenges regarding data privacy and ethical handling. This study implements a "Privacy by Design" approach to ensure compliance with security standards and the protection of sensitive information.
+
+\begin{itemize}
+    \item \textbf{Local Infrastructure:} A critical security measure in this research is the use of a localized inference pipeline. By deploying the \textit{Gemma-2-9b-it} model on an internal \textbf{NVIDIA A10} server, the need for third-party Cloud APIs was eliminated. This prevents the transmission of unstructured conversational data to external entities, ensuring that the processing remains within a secure and audited environment.
+    
+    \item \textbf{Data Anonymization and Traceability:} The dataset is structured around unique session and user identifiers (UUIDs), devoid of any direct personal identifiers such as names or contact information. Although no automated Named Entity Recognition (NER) pre-processing was applied to the raw text, the risk of re-identification is mitigated by the restricted access to the dataset and the fact that metadata is limited to technical variables (e.g., timestamps, platform type, and game modes).
+    
+    \item \textbf{Commitment and Compliance:} All researchers involved in this project have signed a Non-Disclosure Agreement (NDA) to guarantee the confidentiality of the interactions. The ethical responsibility regarding the General Data Protection Regulation (GDPR) and the management of user consent remains with the providing entity, which authorized the use of this data for research and development purposes.
+\end{itemize}
+
+This framework ensures that the pursuit of technical innovation in social computing does not compromise the fundamental rights of a vulnerable demographic.
+
+
+
+
+
+
+
+
+
+
+
+
+    \subsection{Exploratory Methodology: Inconclusive Validation Trials}
+
+\label{sec:inconclusive_trials}
+
+Before finalizing the current analytical pipeline, several iterative approaches were tested to operationalize the user's self-disclosure. These trials aimed to balance the theoretical requirements of spt with the practical constraints of the dataset and the technical capabilities of the llm.
+
+\subsubsection{First Approach: GDPR and Personal Observational Categories}
+Initially, the classification was expanded beyond the core spt layers. We attempted to maintain a fourth category dedicated to sensitive data as defined by the General Data Protection Regulation (GDPR). Furthermore, following a manual qualitative review of the conversation logs, a fifth category was proposed to capture recurring themes that appeared significant in the elderly-bot interaction but were not explicitly covered by the three main spt pillars.
+
+\begin{lstlisting}[language=json, caption={Initial 5-Category Experimental Schema.}, label={lst:initial_categories}]
+{
+    'Category 1: Health & Wellbeing': [
+        'salud_mental_emocional', 
+        'salud_fisica_adicciones'
+    ],
+    'Category 2: Interpersonal Relations': [
+        'dinamicas_familiares', 
+        'relaciones_afectivas'
+    ],
+    'Category 3: History & Personal Dev.': [
+        'metas_fracasos_personales', 
+        'traumas_adversidades', 
+        'vida_profesional_carrera'
+    ],
+    'Category 4: GDPR Topics': [
+        'creencias_religiosas_filosoficas', 
+        'opiniones_politicas', 
+        'vida_sexual_orientacion', 
+        'origen_racial_etnico', 
+        'afiliacion_sindical', 
+        'datos_biometricos', 
+        'datos_geneticos'
+    ],
+    'Category 5: Core Self': [
+        'situacion_economica', 
+        'codigo_moral_etico', 
+        'conflictos_errores_cometidos', 
+        'imagen_corporal_autoestima'
+    ]
+}
+\end{lstlisting}
+
+Prior to the implementation of the $N+1$ clustering methodology, an alternative clustering phase was conducted using the performance metrics previously detailed in Section \ref{sec:metrics_label}. Although multiple configurations were tested, none of the resulting models yielded conclusive patterns; the clusters exhibited significant overlap and failed to capture the nuanced dimensions of the self-disclosure layers. These results reinforced the need for a more specialized approach, leading to the refined strategy described in the following sections.
+
+
+\subsubsection{Second Approach: Thematic Fusion and Subtopic Consolidation}
+In a second iteration aimed at aligning the research more closely with the canonical spt framework, we attempted to merge all granular subtopics directly into the three primary macro-categories. This approach moved away from the 5-category model to test if a more concentrated semantic focus would yield clearer results.
+
+\begin{lstlisting}[language=json, caption={Consolidated 3-Category Mapping.}, label={lst:consolidated_categories}]
+{
+    'Categoría 1: Salud y Bienestar': [
+        'salud_mental_emocional', 
+        'salud_fisica_adicciones',
+        'datos_biometricos', 
+        'datos_geneticos',
+        'imagen_corporal_autoestima'
+    ],
+    'Categoría 2: Relaciones Interpersonales': [
+        'dinamicas_familiares', 
+        'relaciones_afectivas',
+        'vida_sexual_orientacion', 
+        'codigo_moral_etico', 
+        'conflictos_errores_cometidos'
+    ],
+    'Categoría 3: Historia y Desarrollo Personal': [
+        'metas_fracasos_personales', 
+        'traumas_adversidades', 
+        'vida_profesional_carrera',
+        'situacion_economica', 
+        'opiniones_politicas', 
+        'origen_racial_etnico', 
+        'creencias_religiosas_filosoficas', 
+        'afiliacion_sindical'
+    ]
+}
+\end{lstlisting}
+
+\subsubsection{Analysis of Inconclusiveness}
+Although this second approach produced slightly more defined clusters in the latent space, the gain in mathematical variance was not significant enough to justify the loss of granular detail. Moreover, the inclusion of non-spt categories (like the GDPR or observational groups) introduced ``semantic noise'' that diluted the psychological focus of the study.
+
+Consequently, these trials led to the decision to adopt the current methodology: a pure spt-aligned framework that utilizes the hadamard product to ensure both thematic breadth and disclosure depth without compromising the theoretical foundations of the research.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     \subsection{Clustering Strategy}
-        \subsubsection{Implementation of the K-Means Algorithm}
-        \subsubsection{Justification of the N+1 Cluster Architecture}
+       \subsubsection{Implementation of the K-Means Algorithm}
+The clustering phase was executed using the K-Means algorithm, chosen for its interpretability in centroid analysis. The model was applied directly to the feature space to maintain the spt scale integrity. While the \textbf{Silhouette Coefficient} and \textbf{Elbow Method} results were not entirely decisive—suggesting a continuous rather than highly fragmented distribution of user behaviors—the algorithm successfully identified core trends in the data.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/6codos.png}
+    \caption{Elbow Method analysis for cluster optimization.}
+    \label{fig:elbow_method}
+\end{figure}
+\newpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/6siluetas.png}
+    \caption{Silhouette Method analysis for cluster optimization.}
+    \label{fig:silhouette_method}
+\end{figure}
+
+As illustrated in Figure \ref{fig:elbow_method}, the inertia curve does not exhibit a clearly defined "elbow" or a sharp inflection point. This lack of a decisive break suggests that the self-disclosure patterns in our elderly-chatbot dataset do not form naturally isolated groups with high density. Instead, the results point towards a \textbf{behavioral continuum}, where the boundaries between different levels of intimacy are fluid and overlapping.
+\\
+Despite the absence of a mathematically unique optimal $k$, the selection of the \textit{N+1} architecture was driven by the need for \textbf{semantic interpretability} and the identification of distinct theoretical profiles within this continuous space.
+
+
+\subsubsection{Justification of the N+1 Cluster Architecture}
+We propose an \textbf{$N+1$ architecture} to categorize the results. The $N$ clusters represent the stable behavioral archetypes identified through inference. The additional \textbf{$+1$ cluster} is strategically designed to capture  transient interactions. This separation is crucial in elderly-bot datasets to prevent "cold-start" sessions from diluting the semantic clarity of the primary \gls{topic} centroids. This architecture prioritizes \textbf{qualitative interpretability} over purely mathematical partition metrics.

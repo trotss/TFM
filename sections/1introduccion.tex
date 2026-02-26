@@ -45,9 +45,43 @@ To achieve this overarching goal, the following specific objectives have been es
     
     \item \textbf{Chapter 5: Analysis of Results} evaluates the outcome of the clustering process, providing a thematic characterization of the identified self-disclosure domains.
     
-    \item \textbf{Chapter 6: Validation and Evaluation} assesses the model's performance by comparing it against an expert-annotated Gold Standard, using metrics such as Krippendorff’s Alpha and MCC.
+    \item \textbf{Chapter 6: Validation and Evaluation} assesses the model's performance by comparing it against an expert-annotated Gold Standard, using metrics such as Krippendorff’s Alpha.
     
     \item \textbf{Chapter 7: Conclusions and Future Work} synthesizes the findings, discusses the limitations of the study, and outlines potential applications in the field of elderly care.
 \end{itemize}
+
+
+\subsection{Social Penetration Theory}
+
+
+Social Penetration Theory (SPT) provides a foundational framework for understanding how individuals reveal personal information to others, a process termed \textit{self-disclosure}. Often illustrated through the "onion metaphor," the theory suggests that personality is structured in layers, and relational development involves the systematic "peeling" of these layers through communication.
+
+According to the theory, the disclosure process is defined by two primary dimensions:
+\begin{enumerate}
+    \item \textbf{Breadth:} The variety of topics covered during an interaction.
+    \item \textbf{Depth:} The level of intimacy or sensitivity of the information shared within those topics.
+\end{enumerate}
+
+In the digital era, SPT has been widely adapted to study Human-Computer Interaction (HCI). In this thesis, the theory is utilized to categorize conversational data into distinct thematic domains. By mapping user utterances to specific layers—ranging from superficial biographical data to more intimate disclosures regarding \textit{Health}, \textit{Relationships}, and \textit{Personal Development}—we can quantify the level of trust and openness established between the elderly user and the conversational agent. This theoretical grounding justifies the selection of our classification categories and provides the necessary psychological context for the subsequent unsupervised learning phase.
+
+
+\subsubsection{The Layered Structure of Disclosure}
+
+Taylor and Altman describe the structure of personality as a series of concentric layers, ranging from the most visible to the most private aspects of an individual. The transition through these layers is what defines the "penetration" process:
+
+\begin{itemize}
+    \item \textbf{Peripheral Layer:} Contains "public" or observable data. It includes biographical facts (age, origin) and surface-level preferences. In elderly-agent interactions, this corresponds to the initial exchange of greetings and general information.
+    \item \textbf{Intermediate Layer:} Encompasses personal opinions, social attitudes, and historical narratives. While still relatively safe to share, these topics reflect the individual's values and professional or social trajectory.
+    \item \textbf{Core Layer:} Represents the most intimate and sensitive domain of the self. It includes deep-seated emotions, vulnerabilities, chronic health concerns, and significant life-changing events (such as widowhood or trauma). 
+\end{itemize}
+
+The systematic movement from the peripheral to the core layer is governed by the \textit{norm of reciprocity}, although in Human-Computer Interaction (HCI), this dynamic shifts as the user perceives the agent as a non-judgmental confidant. This study specifically targets the identification of shifts from the intermediate to the core layers, as they are the most indicative of the chatbot's success in fostering a supportive environment for the elderly.
+
+
+
+The situational context and the nature of the communication channel significantly influence how self-disclosure is enacted. According to \cite{Bazarova2014}, self-disclosure in digital environments is not merely a direct reflection of relational depth but is also driven by specific functional motivations that vary across different platforms. Their research highlights that the technical affordances of a medium—such as perceived privacy and audience reach—shape the intimacy and characteristics of the shared information. 
+
+In the specific context of this study, this functional approach is crucial: the interaction between an elderly user and a chatbot represents a unique, private communication channel. This perceived intimacy may lower the "social cost" of disclosure, encouraging users to reveal information from the \textit{core layer}—such as chronic health issues or deep personal history—more freely than they would in other digital social settings.
+
 
 \newpage

@@ -1,38 +1,11 @@
+
 \section{Theoretical Framework and State of the Art}
 
-    \subsection{Social Penetration Theory}
-
-
-Social Penetration Theory (SPT) provides a foundational framework for understanding how individuals reveal personal information to others, a process termed \textit{self-disclosure}. Often illustrated through the "onion metaphor," the theory suggests that personality is structured in layers, and relational development involves the systematic "peeling" of these layers through communication.
-
-According to the theory, the disclosure process is defined by two primary dimensions:
-\begin{enumerate}
-    \item \textbf{Breadth:} The variety of topics covered during an interaction.
-    \item \textbf{Depth:} The level of intimacy or sensitivity of the information shared within those topics.
-\end{enumerate}
-
-In the digital era, SPT has been widely adapted to study Human-Computer Interaction (HCI). In this thesis, the theory is utilized to categorize conversational data into distinct thematic domains. By mapping user utterances to specific layers—ranging from superficial biographical data to more intimate disclosures regarding \textit{Health}, \textit{Relationships}, and \textit{Personal Development}—we can quantify the level of trust and openness established between the elderly user and the conversational agent. This theoretical grounding justifies the selection of our classification categories and provides the necessary psychological context for the subsequent unsupervised learning phase.
-
-
-\subsubsection{The Layered Structure of Disclosure}
-
-Taylor and Altman describe the structure of personality as a series of concentric layers, ranging from the most visible to the most private aspects of an individual. The transition through these layers is what defines the "penetration" process:
-
-\begin{itemize}
-    \item \textbf{Peripheral Layer:} Contains "public" or observable data. It includes biographical facts (age, origin) and surface-level preferences. In elderly-agent interactions, this corresponds to the initial exchange of greetings and general information.
-    \item \textbf{Intermediate Layer:} Encompasses personal opinions, social attitudes, and historical narratives. While still relatively safe to share, these topics reflect the individual's values and professional or social trajectory.
-    \item \textbf{Core Layer:} Represents the most intimate and sensitive domain of the self. It includes deep-seated emotions, vulnerabilities, chronic health concerns, and significant life-changing events (such as widowhood or trauma). 
-\end{itemize}
-
-The systematic movement from the peripheral to the core layer is governed by the \textit{norm of reciprocity}, although in Human-Computer Interaction (HCI), this dynamic shifts as the user perceives the agent as a non-judgmental confidant. This study specifically targets the identification of shifts from the intermediate to the core layers, as they are the most indicative of the chatbot's success in fostering a supportive environment for the elderly.
-
-
-
-The situational context and the nature of the communication channel significantly influence how self-disclosure is enacted. According to \cite{Bazarova2014}, self-disclosure in digital environments is not merely a direct reflection of relational depth but is also driven by specific functional motivations that vary across different platforms. Their research highlights that the technical affordances of a medium—such as perceived privacy and audience reach—shape the intimacy and characteristics of the shared information. 
-
-In the specific context of this study, this functional approach is crucial: the interaction between an elderly user and a chatbot represents a unique, private communication channel. This perceived intimacy may lower the "social cost" of disclosure, encouraging users to reveal information from the \textit{core layer}—such as chronic health issues or deep personal history—more freely than they would in other digital social settings.
     
-    \subsection{Natural Language Processing and Generative AI}
+    
+    \subsection{Natural Language Processing and Generative AI in Assistants}
+    \subsection{Generative AI in Assistants with Eldery people}
+    \subsection{Generative AI in Disclosure}
 
 The evolution of Natural Language Processing (NLP) has been marked by a transition from shallow statistical analysis to deep semantic understanding. In the preliminary stages of this study, various traditional NLP libraries were tested, such as \textit{spaCy} for syntactic parsing, \textit{NLTK} and \textit{TextBlob} for basic text processing, and \textit{pysentimiento} for sentiment and emotion detection. 
 
@@ -79,7 +52,7 @@ Large Language Models (LLMs) represent a significant advancement by enabling \te
 The synergy between programmatic and LLM-based features is critical for a comprehensive analysis. Programmatic features provide the structural "skeleton" of the conversation, while LLM-derived features provide the "flesh" or semantic depth. This dual-layered approach allows us to feed the subsequent clustering algorithm with a feature vector that encapsulates both the quantitative dynamics of the interaction and the qualitative nature of the user's self-disclosure.
         
     \subsection{Unsupervised Machine Learning}
-
+\label{sec:metrics_label}
 Unsupervised machine learning comprises a set of techniques designed to identify underlying structures and patterns in datasets that lack explicit labels. In the context of this thesis, where the objective is to categorize the depth of 16,000 spontaneous interactions without a pre-existing \textit{Gold Standard}, this paradigm provides a scalable and objective framework for behavioral discovery.
 
 Following the comprehensive review by \cite{Naeem2023}, unsupervised learning is fundamental for exploratory data analysis, as it allows for the identification of natural groupings based on feature proximity in a multi-dimensional space. The utility of this approach in social computing lies in its ability to handle high-dimensional semantic vectors—such as those extracted via LLMs—and organize them into interpretable clusters without human bias influencing the initial grouping process.
@@ -106,7 +79,7 @@ K-Means is an unsupervised learning technique designed to partition $n$ observat
 
 To evaluate the validity of the partition and select the optimal number of clusters, this study employs the following metrics and heuristics based on the review by \cite{Naeem2023}:
 
-\begin{itemize}
+\begin{itemize} 
     \item \textbf{Elbow Method:} Identification of the inflection point in the WCSS curve.
     \item \textbf{Silhouette Score:} A measure of cohesion and separation ranging from -1 to 1.
     \item \textbf{Calinski-Harabasz Index:} The ratio of the sum of between-clusters scatter and within-cluster scatter.
@@ -172,20 +145,7 @@ Furthermore, \textbf{t-Distributed Stochastic Neighbor Embedding (t-SNE)} is uti
 
 \newpage
         
-    \subsection{Ethics and Privacy in Sensitive Data Analysis}
-
-    The analysis of natural language in interactions with elderly users presents significant challenges regarding data privacy and ethical handling. This study implements a "Privacy by Design" approach to ensure compliance with security standards and the protection of sensitive information.
-
-\begin{itemize}
-    \item \textbf{Local Infrastructure:} A critical security measure in this research is the use of a localized inference pipeline. By deploying the \textit{Gemma-2-9b-it} model on an internal \textbf{NVIDIA A10} server, the need for third-party Cloud APIs was eliminated. This prevents the transmission of unstructured conversational data to external entities, ensuring that the processing remains within a secure and audited environment.
     
-    \item \textbf{Data Anonymization and Traceability:} The dataset is structured around unique session and user identifiers (UUIDs), devoid of any direct personal identifiers such as names or contact information. Although no automated Named Entity Recognition (NER) pre-processing was applied to the raw text, the risk of re-identification is mitigated by the restricted access to the dataset and the fact that metadata is limited to technical variables (e.g., timestamps, platform type, and game modes).
-    
-    \item \textbf{Commitment and Compliance:} All researchers involved in this project have signed a Non-Disclosure Agreement (NDA) to guarantee the confidentiality of the interactions. The ethical responsibility regarding the General Data Protection Regulation (GDPR) and the management of user consent remains with the providing entity, which authorized the use of this data for research and development purposes.
-\end{itemize}
-
-This framework ensures that the pursuit of technical innovation in social computing does not compromise the fundamental rights of a vulnerable demographic.
-
 
 \subsection{Work Hypotesis}
 

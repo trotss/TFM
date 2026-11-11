@@ -1,0 +1,25 @@
+\section{Conclusions and Future Work}
+
+\subsection{Conclusions}
+This research systematically evaluated the automatic assessment of self-disclosure in interactions between chatbots and older adults using SPT LLMs. Across multiple methodological dimensions, several insights were obtained regarding the extraction and classification of sensitive conversational data.
+
+\begin{itemize}
+    \item \textbf{Optimal Prompt Architecture:} The results demonstrate that a single-prompt configuration is superior to fragmented categorical requests. This approach preserves the global context of the conversation, preventing "intensity drift" and ensuring that the LLM maintains internal consistency  for scoring different disclosure levels.
+    \item \textbf{The Efficiency of Hadamard Gating:} The implementation of a \gls{hadamard} product for score fusion proved to be the most effective strategy for noise reduction. By requiring explicit semantic confirmation before assigning an intensity value, this mechanism successfully mitigated the hallucination that often plagues standard Mean or Max aggregation methods.
+    \item \textbf{Granularity and Stability:} While binary Hadamard scaling offer the highest statistical precision, the 5-level (0--5) intensity rubric remains valuable for qualitative research. When combined with the aforementioned gating strategy, it provides a stable balance between descriptive depth and quantitative reliability.
+    \item \textbf{Structural Validity of the $3+1$ Model:} The clustering analysis confirms that conversational profiles naturally tend toward specialized thematic centroids (Health, Relationships, and History). The inclusion of a residual ($+1$) cluster to absorb superficial orientation stage sessions was instrumental in maintaining the purity and interpretability of the primary behavioral archetypes.
+\end{itemize}
+
+\newpage
+
+\subsection{Future Work}
+To deepen the understanding of digital social computing for vulnerable demographic groups, we propose the following future research directions:
+
+\begin{itemize}
+    \item \textbf{Clinical Impact Metric (User Well-being):} Future research should focus on validating the system’s effectiveness by correlating the depth of spontaneous disclosure with results from standardized clinical loneliness scales. Success would be defined by a measurable reduction in perceived isolation through longitudinal psychometric assessments, rather than solely by conversational engagement metrics \cite{Fox2021}.
+    \item \textbf{Advanced Clustering and Model Selection:} Beyond K-Means, future research should explore probabilistic models such as Gaussian Mixture Models (GMM) and Bayesian Information Criterion (BIC) to determine the optimal number of clusters dynamically. Incorporating the Calinski-Harabasz index and Davies-Bouldin index will provide more rigorous internal validation for group cohesion.
+    \item \textbf{Multi-Model and Multilingual Benchmarking:} Evaluation across a broader spectrum of LLMs (e.g., Llama 3, Mistral, and specialized medical-domain models), as well as across diverse languages, would help validate the cross-cultural universality of the current SPT extraction rubrics.
+    \item \textbf{Longitudinal Sentiment-Disclosure Correlation:} A novel research direction involves tracking the evolution of sentiment and self-disclosure over months of interaction, potentially serving as a digital biomarker for loneliness or cognitive health \cite{Skjuve2023}.
+    \item \textbf{Adaptive Conversational Pacing:} Future systems could implement a closed-loop interaction model in which the chatbot dynamically adjusts its conversational strategy in real time. If the system detects that a user remains within the “orientation” layer ($C_0$), it could autonomously adopt reciprocal disclosure \cite{Lee2017} techniques to encourage deeper social penetration \cite{Krsek2026}.
+    %\item \textbf{Privacy-Preserving Federated Learning:} To scale the model across different care facilities without compromising data sovereignty, a \textbf{Federated Learning} approach could be implemented. This would allow the system to learn from global patterns of elderly disclosure while keeping all raw conversational data strictly local and encrypted.
+\end{itemize}

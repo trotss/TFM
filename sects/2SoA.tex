@@ -1,0 +1,115 @@
+\section{State of the Art}
+
+
+The evolution of Conversational Agents has been intrinsically linked to the advancements in NLP and AI. Together, these help to bridge the gap between human communication and machine comprehension. As noted by \cite{Lalwani2018}, the implementation of a chatbot system relies on the synergy between AI and NLP to analyze user input and generate responses that mimic human conversation. This process involves multiple layers of processing, from initial pattern recognition to the semantic interpretation of the user's intent, aiming to provide a seamless and intuitive user experience.
+
+Historically, chatbots were limited by rigid rule-based frameworks. However, the field has transitioned toward more sophisticated, contextual architectures. Modern AI assistants are no longer mere responders to isolated commands; they are designed to maintain the flow of dialogue and understand the broader circumstances of the interaction. According to \cite{9214076}, the development of contextual AI assistants represents a significant leap forward, as these systems utilize specialized NLU and core logic units to manage state and context. This allows the assistant to handle complex task analysis and provide 
+%jollity or 
+emotional support, moving beyond functional utility toward a more human-centric interaction.
+In recent years, the emergence of  GAI and LLMs has further redefined this landscape. While early assistants focused on intent classification and slot filling, current generative models possess the capacity to synthesize vast amounts of information and generate highly coherent, context-aware discourse. This technological shift provides the foundation for more empathetic and deep interactions, which are particularly relevant when addressing specific populations, such as the elderly, where the nuances of language and personal narrative are paramount.
+
+
+
+    \subsection{Generative AI in Assistants for the Elderly}
+
+AI for the elderly has shifted from simple monitoring systems to proactive, supportive companions. This transition has been driven by the urgent need to address the challenges of aging populations while enabling independence and improving quality of life. According to \cite{Padhan2023}, the integration of AI-driven technologies and robotics in healthcare serves as a critical facilitator for elderly independence, providing not only physical assistance but also 
+%a framework for continuous health monitoring and e
+motional support.
+
+The success of these technologies, however, depends heavily on their adoption and the dynamics of the ``Smart Elderly Care" ecosystem. As explored in \cite{Shang2025}, the adoption of AI health assistants is an evolutionary process influenced by the perceived value and the strategic alignment between users and care providers. This research suggests that for an assistant to be truly integrated into the lives of the elderly, it must transcend functional utility and become a trusted component of daily routine, a feat that requires high levels of naturalness and communication reliability.
+
+%The most recent shift in this field is the move toward \textbf{Agentic AI} and the utilization of Large Language Models (LLMs). Unlike traditional, reactive systems, agentic models can perform complex reasoning and autonomous decision-making. \cite{11328752} highlights that LLMs are redefining elderly care by providing a platform for more sophisticated mental health support and personalized interaction. Nevertheless, this new paradigm introduces significant challenges, particularly regarding privacy, ethics, and the need for adaptation models that can cater to the specific cognitive and linguistic profiles of older adults. By leveraging the generative capabilities of models like \textit{Gemma-2}, it is possible to move beyond predefined scripts and foster a more authentic sense of companionship that aligns with the principles of social penetration.
+
+
+% \newpage
+    \subsection{Generative AI and the Dynamics of Self-Disclosure}
+
+The intersection of GAI and human psychology has opened a new frontier in the study of self-disclosure. As GAI agents become increasingly sophisticated in their linguistic capabilities, the traditional barriers to sharing personal information with non-human entities are more diffuse. This phenomenon is central to understanding how digital companions can facilitate emotional support and relational depth.
+
+According to \cite{Papneja2024}, self-disclosure to conversational AI is no longer a peripheral topic but a structured field of study that requires an emergent framework. This comprehensive literature review indicates that the way users disclose information to AI is influenced by the agent's perceived empathy and its ability to maintain a coherent, context-aware dialogue. This research emphasizes that future directions in NLP must focus on how AI can proactively encourage disclosure to better serve the user's psychological needs, particularly in longitudinal interactions.
+
+
+
+A key validation of this interaction model is found in  \cite{Merwin2025}. Its empirical findings suggest a media equality effect in the context of GAI, demonstrating that individuals provide personal information to AI and humans at equivalent levels. This equivalence is a cornerstone for the present study: if users disclose sensitive information to a chatbot with the same frequency and depth as they would to a human interlocutor, the data extracted through \gls{spt} categories becomes a high-fidelity proxy for true emotional and social state.
+
+Consequently, leveraging LLMs for the extraction of  disclosure patterns allows for a non-intrusive yet deeply granular analysis of user behavior. By applying automated scoring rubrics to these interactions, we can map the transition from superficial exchanges to core-layer disclosures, providing a quantifiable measure of the social penetration achieved by the AI assistant in the elderly care domain.
+
+
+
+
+
+%The evolution of Natural Language Processing (NLP) has been marked by a transition from shallow statistical analysis to deep semantic understanding. In the preliminary stages of this study, various traditional NLP libraries were tested, such as \textit{spaCy} for syntactic parsing, \textit{NLTK} and \textit{TextBlob} for basic text processing, and \textit{pysentimiento} for sentiment and emotion detection. 
+
+%While these tools provide a solid baseline, they encounter two primary obstacles in the context of this research. First, their performance is notably superior in English-centric datasets, whereas our corpus consists of spontaneous Spanish dialogues, introducing complexities related to syntax, slang, and cultural nuances. Second, traditional models often operate at a surface level, struggling to capture the complex thematic layers defined by Social Penetration Theory.
+
+%To overcome these limitations, we transitioned to the use of Large Language Models (LLMs), specifically the \textbf{Gemma-2-9b-it} model. Its architecture is particularly well-suited for this thesis due to its advanced reasoning capabilities and its ability to process Spanish with high semantic fidelity. 
+    
+%        \subsubsection{Evolution of LLMs: The Gemma-2-9b-it Model}
+
+%The landscape of Natural Language Processing has been redefined by the advent of Large Language Models (LLMs) that provide high-tier reasoning within accessible hardware requirements. The \textbf{Gemma-2-9b-it} model stands out as a state-of-the-art open-model solution. As detailed by the \cite{https://doi.org/10.48550/arxiv.2408.00118}, the Gemma 2 family introduces architectural optimizations that allow smaller-scale models to outperform significantly larger predecessors in benchmarks involving common sense and reasoning.
+
+%In this thesis, the choice of the 9B variant is justified by a dual constraint: hardware limitations and dataset scale. The model was deployed in its native precision (\textit{bfloat16}) to ensure maximum semantic fidelity, as no quantization was applied during loading process from the Hugging Face Hub. The experimental environment is equipped with an \textbf{NVIDIA A10 GPU} (24GB). The memory footprint $M$ for an LLM is a function of its parameter count $P$ and the precision $B$ in bytes:
+
+%Given that $P \approx 9.2 \times 10^9$ and $B = 2$ bytes (16 bits), we obtain:
+
+%\begin{equation}
+%    M_{weights} \approx 9.2 \text{ B} \times 2 \text{ bytes} = 18.4 \text{ GB}
+%\end{equation}
+%The remaining VRAM is utilized for the \textit{Key-Value (KV) Cache} and activation tensors during \gls{inference}. This leaves a safety margin of approximately 5.6 GB, ensuring stable processing of long conversational contexts without \textit{Out-of-Memory} (OOM) errors.
+
+%While this hardware is capable of handling sophisticated inference, the use of larger-scale architectures would result in prohibitive inference times given the volume of our dataset, which comprises \textbf{16,000 sessions}. Thus, Gemma-2-9b-it was selected as it offers the highest "performance-per-parameter" ratio available, ensuring that the processing of the entire Spanish corpus remains computationally feasible without sacrificing semantic depth.
+
+%To ensure structural reliability, the \gls{inference} process was constrained by a \textbf{maximum output token limit}. This restriction is possible due to a \textbf{deterministic} output that strictly follows the requested JSON format.
+
+%In terms of computational throughput, the processing of the entire dataset exhibited a significant range of latency. Depending on the complexity of the prompt and the specific experiment (A, B, or C), the execution time fluctuated between \textbf{8 hours and 2 days}. These durations reflect the balance between the depth of semantic analysis and the high-volume processing demands of the 2,174 unique user sessions.
+
+%Moreover, the model's instruction-tuned (\textit{it}) capabilities are paramount for the feature extraction phase. Research by \cite{10796809} highlights the efficiency of Gemma-based models in following complex prompts and recovering nuanced information from text. This is a critical factor for our study, as the model must interpret the emotional and thematic layers of elderly users' speech in Spanish—a language that often presents dialectal variations and informal structures that traditional, non-generative NLP tools fail to capture accurately.
+
+
+
+        
+%        \subsubsection{LLMs as Feature Extractors in Social Computing}
+
+%The field of Social Computing relies on the ability to quantify human behavior through computational lenses. Historically, this has been achieved via programmatic feature extraction, which utilizes deterministic scripts to derive surface-level metrics. In this research, these programmatic features include interaction frequency, average message length, and the identification of proper nouns. While computationally inexpensive and objective, these metrics act only as proxies for social behavior; they fail to capture the underlying meaning or the emotional weight of the discourse.
+
+%Large Language Models (LLMs) represent a significant advancement by enabling \textit{Semantic Feature Extraction}. In this paradigm, the model functions as a sophisticated encoder that transforms unstructured text into high-level categorical or numerical scores based on complex rubrics. This study utilizes Gemma-2-9b-it to extract features that were previously inaccessible to traditional NLP, such as:
+
+%\begin{itemize}
+%    \item The sensitivity level of the discussed topics (e.g., political views, health data).
+%    \item The thematic alignment with the layers of Social Penetration Theory (not used).
+%    \item The degree of personal revelation within a specific conversational context (not used).
+%\end{itemize}
+
+%The synergy between programmatic and LLM-based features is critical for a comprehensive analysis. Programmatic features provide the structural "skeleton" of the conversation, while LLM-derived features provide the "flesh" or semantic depth. This dual-layered approach allows us to feed the subsequent clustering algorithm with a feature vector that encapsulates both the quantitative dynamics of the interaction and the qualitative nature of the user's self-disclosure.
+
+\subsection{LLM-as-a-Judge}
+
+\subsubsection{Prompting Strategies: Unified Multitask vs. Fragmented Single-Task Inference}
+
+The architectural design of the prompt is a determinant factor in the performance of LLMs (LLMs) acting as evaluators. Two primary strategies were contrasted: a \textit{fragmented approach}, where the model is prompted to provide a score for each individual dimension in isolation (Single-Task), and a \textit{unified approach}, where the model assesses all categories of the SPT within a single inference cycle (Multitask).
+
+The choice between these methodologies is a subject of ongoing debate in the field. According to \cite{Gozzi2024}, the comparative analysis of prompt strategies suggests that while single-task prompts may reduce the immediate cognitive load per request, multitask prompting can leverage the model's internal attention mechanisms to account for interdependencies between variables \cite{Gemini2026}.
+
+
+\subsubsection{Granularity of Evaluation Rubrics}
+
+The choice of grading scale granularity involves a critical trade-off between sensitivity and reliability. Binary rubrics (0–1) are documented as the most robust against LLM biases, such as verbosity, by establishing clear occurrence thresholds without the risk of false precision. Ternary scales (0–2) offer higher resolution but often face challenges regarding the consistency of the intermediate category boundaries.
+
+Recent research identifies the 0–5 Likert scale as the optimal granularity for human-LLM alignment. According to \cite{Li2026}, while models can process wider ranges (e.g., 0–10 or 0–100), these expanded scales introduce noise that decreases the Intraclass Correlation Coefficient (ICC). The 5-point scale represents an empirical ``sweet spot," providing sufficient freedom to capture qualitative nuances while maintaining high discriminative stability and alignment with human judgment \cite{Li2026}.
+
+
+\subsection{Aggregation Strategies for Subtopic Fusion}
+
+Aggregating granular subtopic intensities into high-level thematic dimensions requires the application of mathematical combination rules. 
+%The literature distinguishes between three primary operators: the arithmetic mean, the maximum value, and the Hadamard product (gating).
+The mean operator is the most common approach for capturing the central tendency of a session. It provides a smoothed representation of thematic presence but, as noted in multi-label classification studies, it tends to dilute ``peak" emotional events in sparse datasets. Conversely, the maximum operator focuses on the highest intensity detected, preserving significant disclosure events. However, this rule is highly sensitive to outliers and potential LLM hallucinations or over-sensitizations.
+
+The Hadamard product (element-wise multiplication) is increasingly used as a \textit{gating mechanism} to ensure robustness. By multiplying a binary detection vector by a continuous intensity vector, it effectively filters out noise. According to the foundational framework in \cite{Kittler1998}, while the sum rule (Mean) is more resilient to noise in probability estimation, the product rule (Hadamard) is superior when the different sources (subtopics) provide independent and complementary evidence. In the context of automated text analysis, this gating strategy ensures that intensity scores are only considered valid if a prior binary threshold of thematic presence is met.
+
+
+
+
+
+
+
+

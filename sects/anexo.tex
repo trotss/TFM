@@ -1,0 +1,145 @@
+\newpage
+
+\appendix
+\section{Prompts Used in Feature Extraction}
+\label{appendix:prompts}
+
+This appendix details the system prompts provided to the \textit{Gemma-2-9b-it} model. The structure of these prompts follows the model's control tag format to ensure a deterministic response in JSON format.
+
+\subsection{Subtopic Extraction}
+\label{appendix:prompt_subtopics}
+
+Experiment C constitutes the granular foundation of the system. Two variants were used: one based on a rubric (0-5) and a binary version (0/1).
+
+\begin{lstlisting}[language=json, caption={Prompt for Subtopics rubric  (Experiment C).}, label={lst:app_prompt_sub_rubric}, frame=single, basicstyle=\small\ttfamily, breaklines=true]
+<start_of_turn>user
+You are a text analysis system. Your goal is to quantify the level of self-disclosure in a predefined list of topics:
+- Health (Mental/Physical)
+- Relationships (Family/Affective)
+- Personal History (Goals, Traumas, Career)
+
+Analyze the [MESSAGES TO EVALUATE] and assign a score (0-5) to EACH topic. 
+Response must be ONLY a valid JSON object.
+
+# EVALUATION SCALE (0-5)
+* 0: No Mention.
+* 1: Impersonal Mention (General talk).
+* 2: Vague Personal Mention (General identification).
+* 3: Specific Action Disclosure (Concrete habits/actions).
+* 4: Detailed Disclosure (Sharing reasoning/beliefs).
+* 5: Deep Disclosure (Vulnerability, impact, deep emotions).
+
+# EXPECTED JSON FORMAT
+{
+  "mental_emotional_health": Int,
+  "physical_health_addictions": Int,
+  "family_dynamics": Int,
+  "affective_relationships": Int,
+  "personal_goals_failures": Int,
+  "traumas_adversities": Int,
+  "professional_career": Int
+}
+
+[MESSAGES TO EVALUATE]: 
+<end_of_turn>
+\end{lstlisting}
+
+\begin{lstlisting}[language=json, caption={Prompt for Subtopics binary (Experiment C).}, label={lst:app_prompt_sub_binary}, frame=single, basicstyle=\small\ttfamily, breaklines=true]
+<start_of_turn>user
+You are a high-precision text classification system. Your task is to detect the PRESENCE or ABSENCE of specific self-disclosure topics in the provided text.
+
+Analyze the [MESSAGES TO EVALUATE] and assign a value of 1 if the topic is mentioned (regardless of its depth) and 0 if it is not mentioned at all.
+Your response must be ONLY a valid JSON object.
+
+# TOPICS TO DETECT
+- mental_emotional_health
+- physical_health_addictions
+- family_dynamics
+- affective_relationships
+- personal_goals_failures
+- traumas_adversities
+- professional_career
+
+# DETECTION RULES
+* 0: There is no trace of the topic in the text.
+* 1: The topic is present in the text (even if vaguely mentioned).
+
+# EXPECTED JSON FORMAT
+{
+  "mental_emotional_health": 0 or 1,
+  "physical_health_addictions": 0 or 1,
+  "family_dynamics": 0 or 1,
+  "affective_relationships": 0 or 1,
+  "personal_goals_failures": 0 or 1,
+  "traumas_adversities": 0 or 1,
+  "professional_career": 0 or 1
+}
+
+[MESSAGES TO EVALUATE]:
+<end_of_turn>
+\end{lstlisting}
+
+\newpage
+
+\subsection{Direct topic Evaluation}
+\label{appendix:prompt_categories}
+
+In Experiment B, the model performs a direct inference on the three macro-categories of the SPT, bypassing the aggregation of subtopics.
+
+\begin{lstlisting}[language=json, caption={Prompt for Topic rubric (Experiment B).}, label={lst:app_prompt_cat_rubric}, frame=single, basicstyle=\small\ttfamily, breaklines=true]
+<start_of_turn>user
+You are a text analysis system. Your goal is to quantify the level of self-disclosure in a predefined list of categories focused on lived experiences and the author's inner world.
+
+Analyze the [MESSAGES TO EVALUATE] and assign a score (0-5) to EACH category.
+Response must be ONLY a valid JSON object.
+
+# CATEGORIES TO EVALUATE
+* 'Category 1: Health and Well-being': Includes physical, mental, and emotional health.
+* 'Category 2: Interpersonal Relationships': Includes family dynamics and affective relationships.
+* 'Category 3: Personal History and Development': Includes goals, failures, traumas, and career.
+
+# EVALUATION SCALE (0-5)
+* 0: No Mention.
+* 1: Impersonal Mention (General discussion, no personal link).
+* 2: Vague Personal Mention (General identification or labels).
+* 3: Specific Action Disclosure (Concrete habits or specific actions)
+* 4: Detailed Disclosure (Reasoning, beliefs, or specific data).
+* 5: Deep Disclosure (Vulnerability, fear, or profound personal impact).
+
+# EXPECTED JSON FORMAT
+{
+    "Category 1: Health and Well-being": Int,
+    "Category 2: Interpersonal Relationships": Int,
+    "Category 3: Personal History and Development": Int
+}
+
+[MESSAGES TO EVALUATE]: 
+<end_of_turn>
+\end{lstlisting}
+
+\begin{lstlisting}[language=json, caption={Prompt for topic binary (Experiment B).}, label={lst:app_prompt_cat_binary}, frame=single, basicstyle=\small\ttfamily, breaklines=true]
+<start_of_turn>user
+You are a text analysis system. Your goal is to quantify the level of self-disclosure in a predefined list of broad categories:
+- Category 1: Health and Well-being (Mental, emotional, and physical health)
+- Category 2: Interpersonal Relationships (Family dynamics, affective relationships).
+- Category 3: Personal History and Development (Goals, failures, traumas, career).
+
+Analyze the [MESSAGES TO EVALUATE] and assign a 0 or 1 to EACH category.
+Response must be ONLY a valid JSON object.
+
+# BINARY EVALUATION SCALE (0-1)
+* 0: No Mention or Not Relevant: The topic is not mentioned or not linked personally.
+* 1: Specific Action/Deep Disclosure: The author reveals a concrete habit, action, or reflects deeply on the topic.
+
+# EXPECTED JSON FORMAT
+{
+    "Category 1: Health and Well-being": 0 or 1,
+    "Category 2: Interpersonal Relationships": 0 or 1,
+    "Category 3: Personal History and Development": 0 or 1
+}
+
+[MESSAGES TO EVALUATE]: 
+<end_of_turn>
+\end{lstlisting}
+
+\newpage

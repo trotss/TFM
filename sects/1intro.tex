@@ -1,0 +1,118 @@
+\section{Introduction}
+    \subsection{Motivation and Context}
+
+The progressive aging of the global population has led to a significant increase in social isolation among senior citizens. To address this, AI-driven conversational agents have emerged as a scalable tool for providing companionship and monitoring \cite{Nakamura2022}. However, these interactions pose the risk of reveling  personal information, a process known as self-disclosure.
+ \vspace{2mm} \newline
+In the field of psichology, understanding how and when a  user shares sensitive details (health, memories, or emotions) is critical \cite{Wu2026}. This project is motivated by the need to transform unstructured dialogue data from the Serenia tool (taken from a dataset with 16,000 sessions) into useful \cite{Ho2018}. By applying Social Penetration Theory (SPT) and Large Language Models (LLMs), we aim to establish the ground for a robust assessment methodology \cite{Laban2021}. Consequently, this work addresses the challenge of characterizing LLMs to extract high-level semantic features to detect vulnerabilities and improve the quality of human-machine interaction in sensitive contexts.
+
+
+    \subsection{Automated Self-Disclosure Detection}
+
+Despite the proliferation of digital tools for elderly care, there is a lack of robust, automated methods to quantify the emotional and personal depth of their interactions. While current Natural Language Processing (NLP) techniques can handle intent recognition or sentiment analysis, their capabilities to capture the nuances of self-disclosure are less understood.
+\vspace{2mm} \newline
+The core challenge lies in the unstructured nature of dialogue data and the subjective complexity of what constitutes a sensitive or deep revelation \cite{Krsek2025}. Existing approaches have relied for a long time on rigid keyword matching or general-purpose sentiment scores, which are insufficient for identifying the thematic layers (health, relationships, personal history) defined by social psychology \cite{Cozby1973}. Furthermore, the use of LLMs as evaluators introduces a new problem of methodological reliability: there is no consensus on whether binary classification, multi-level rubrics, or \gls{subtopic} aggregation yields the most accurate representation of user trust. Therefore, this research addresses the need for a validated, theory-driven approach to transform raw conversational data into a structured metric of self-disclosure in the context of elderly-AI interaction.
+
+
+\subsection{Social Penetration Theory}
+
+%\subsubsection{Social Penetration Theory}
+
+SPT provides a foundational framework for understanding how individuals reveal personal information to others \cite{Altman1973}. Often illustrated through the onion metaphor, the theory suggests that personality is structured in layers, and relational development involves the systematic peeling of these layers through communication. \cite{zhang2023identifying}
+
+According to the theory, the disclosure process is defined by two primary dimensions: %\cite{Altman1973}:
+\begin{enumerate}
+    \item \textbf{Breadth:} The variety of \gls{topic}s covered during an interaction.
+    \item \textbf{Depth:} The level of intimacy or sensitivity of the information shared within those topics.
+\end{enumerate}
+
+SPT has been widely adapted to study Human-Computer Interaction (HCI). In this thesis, the theory is utilized to categorize conversational data into distinct thematic domains. By mapping user utterances to specific layers (ranging from superficial biographical data to more intimate disclosures regarding \textit{Health}, \textit{Relationships}, and \textit{Personal Development}), we can quantify the level of trust and openness established between the elderly user and the conversational assistant \cite{Yang2025}. This theoretical grounding justifies the selection of our classification categories and provides the necessary psychological context for the subsequent unsupervised learning phase.
+
+
+\subsubsection{Thematic Categorization of Disclosure}
+
+In this research, the framework of SPT is adapted to categorize the content of interactions rather than merely measuring the depth of penetration \cite{Laban2023}. For the study of elderly-chatbot interactions, SPT domains are divided into three primary thematic categories:
+
+\begin{itemize}
+    \item \textbf{Health and Well-being.} This domain encompasses the user's physical, mental, and emotional state. In the context of the elderly, it is a highly sensitive category where disclosure ranges from routine health updates to the expression of chronic concerns or emotional distress.
+    \item \textbf{Interpersonal Relationships.} This category focuses on the social and family fabric of the individual. It involves narratives about family dynamics, affective bonds, and social support systems, which are essential for identifying the user's level of social integration or isolation.
+    \item \textbf{Personal History and Development.} This thematic area covers the individual's life trajectory, including professional milestones, personal failures, and past traumas. It represents the narrative self, where disclosure often involves significant life events that shape the user's current identity.
+\end{itemize}
+
+
+
+The differentiation between these categories is governed by the \textit{norm of reciprocity}, although in Human-Computer Interaction (HCI) this dynamic is altered. The elderly user often perceives the agent as a non-judgmental confidant, which facilitates the transition between neutral topics and highly personal thematic domains \cite{Keeler2026}. This study focuses on how these specific categories are populated during the interaction, as the presence of disclosure in sensitive areas is a key indicator of the chatbot's ability to create a safe and supportive digital environment.
+
+The situational context and the nature of the communication channel are fundamental to understanding how these categories emerge. As noted in \cite{Bazarova2014}, self-disclosure in digital environments is not a linear reflection of relational depth but is driven by functional motivations and technical affordances. The perceived privacy of a one-on-one chatbot interaction reduces the ``social cost'' of sharing \cite{Tesfay2019}. This allows elderly users to discuss sensitive topics within the specified categories more freely than they would in broader, public digital social settings \cite{Meng2025}.
+
+  \subsection{Research Objectives}
+
+The primary objective of this thesis is to design and evaluate methods for the automated assessment of self-disclosure in dialogues between elderly users and conversational AI tools, leveraging LLMs  and unsupervised learning techniques.
+
+To achieve this overarching goal, the following specific objectives have been established:
+
+\begin{description}
+    \item[O1: Feature Extraction and Scoring.] To implement and compare different scoring strategies (specifically binary versus rubric-based (0-5) scales) using a model to extract high-level semantic features from conversational sessions.
+    \item[O2: Methodological Comparison of Classification.] To evaluate the effectiveness of direct category classification versus a bottom-up approach that utilizes \gls{subtopic} aggregation through the application of \textit{Hadamard products}.
+    \item[O3: Unsupervised Pattern Identification.] To perform clustering (\textit{K-Means}) on the extracted features to identify thematic domains based on SPT.
+    \item[O4: Empirical Validation.] To validate the model's performance against a human-annotated \gls{Gold Standard} of 130 sessions, measuring inter-rater reliability via \textit{Krippendorff’s Alpha}.
+\end{description}
+
+\subsection{Work Hypotesis}
+
+\label{sec:hypothesis}
+
+The present research is built upon the premise that current NLP frameworks for elderly-chatbot interactions often overlook the psychological depth and the temporal evolution of human-machine relationships. By integrating SPT with state-of-the-art GAI, we seek 
+%a shift from purely functional dialogue analysis to 
+a multidimensional evaluation of emotional intimacy.
+
+The central hypotheses guiding this work are as follows:
+
+\begin{itemize}
+    \item \textbf{H1: Semantic Depth through SPT.} The application of SPT to conversational datasets involving elderly users will reveal patterns of self-disclosure that standard NLP metrics fail to capture. This represents a pioneer application of SPT within an NLP framework specifically tailored for the elderly population.
+    
+    \item \textbf{H2: Superiority of GAI-ML Hybridization.} A hybrid approach, utilizing LLMs for granular subtopic extraction and traditional Machine Learning for clustering, will provide a more robust and interpretable characterization of user profiles.
+    %than previous precedents.
+    
+    \item \textbf{H3: Resilience of the Gating Mechanism.} The implementation of a Hadamard Product between rubric-based intensity and binary detection will significantly reduce semantic noise, providing a high-fidelity representation of the user's latent disclosure space.
+
+    \item \textbf{H4: Relevance of Non-intrusive Nature.} Unlike traditional systems designed for information extraction, it is desirable to directly analyze the depth of spontaneous self-disclosure in free interactions, prioritizing emotional companionship over explicit health assessment."
+
+    
+\end{itemize}
+
+    \subsection{Thesis Structure}
+
+
+    This document is structured into seven chapters that guide the reader through the theoretical, technical, and evaluative phases of the research:
+
+\begin{itemize}
+    \item \textbf{Chapter 2: State of the Art} explores the psychological foundations of SPT and the technical landscape of LLMs and unsupervised learning.
+    
+    \item \textbf{Chapter 3: Methodology} constitutes the technical core of the thesis, describing the experimental study for feature extraction, the application of the \textit{Hadamard product} for \gls{subtopic} aggregation, and the \textit{K-Means} clustering configuration.
+    
+    \item \textbf{Chapter 4: Results and Validation} assesses LLMs' performance by comparing it against an expert-annotated \gls{Gold Standard}, using metrics such as \textit{Krippendorff’s Alpha}.
+    
+    \item \textbf{Chapter 5: Conclusions and Future Work} synthesizes the findings, discusses the limitations of the study, and outlines potential applications in the field of elderly care.
+\end{itemize}
+
+
+%\subsubsection{The Layered Structure of Disclosure}
+
+%Taylor and Altman describe the structure of personality as a series of concentric layers, ranging from the most visible to the most private aspects of an individual. The transition through these layers is what defines the "penetration" process:
+
+%\begin{itemize}
+%    \item \textbf{Peripheral Layer:} Contains "public" or observable data. It includes biographical facts (age, origin) and surface-level preferences. In elderly-agent interactions, this corresponds to the initial exchange of greetings and general information.
+%    \item \textbf{Intermediate Layer:} Encompasses personal opinions, social attitudes, and historical narratives. While still relatively safe to share, these topics reflect the individual's values and professional or social trajectory.
+%    \item \textbf{Core Layer:} Represents the most intimate and sensitive domain of the self. It includes deep-seated emotions, vulnerabilities, chronic health concerns, and significant life-changing events (such as widowhood or trauma). 
+%\end{itemize}
+
+%The systematic movement from the peripheral to the core layer is governed by the \textit{norm of reciprocity}, although in Human-Computer Interaction (HCI), this dynamic shifts as the user perceives the agent as a non-judgmental confidant. This study specifically targets the identification of shifts from the intermediate to the core layers, as they are the most indicative of the chatbot's success in fostering a supportive environment for the elderly.
+
+
+
+%The situational context and the nature of the communication channel significantly influence how self-disclosure is enacted. According to \cite{Bazarova2014}, self-disclosure in digital environments is not merely a direct reflection of relational depth but is also driven by specific functional motivations that vary across different platforms. Their research highlights that the technical affordances of a medium—such as perceived privacy and audience reach—shape the intimacy and characteristics of the shared information. 
+
+%In the specific context of this study, this functional approach is crucial: the interaction between an elderly user and a chatbot represents a unique, private communication channel. This perceived intimacy may lower the "social cost" of disclosure, encouraging users to reveal information from the \textit{core layer}—such as chronic health issues or deep personal history—more freely than they would in other digital social settings.
+
+
+% \newpage

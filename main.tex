@@ -13,7 +13,8 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{amsmath}
-
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 % --- CONFIGURACIÓN DEL GLOSARIO ---
 \usepackage[acronym, toc]{glossaries} 
@@ -99,28 +100,29 @@ LANGUAGE PROCESSING TECHNIQUES}
 
 \mainmatter
 \input{abstract}
-\input{sections/1introduccion}
-\input{sections/2estado-arte}
-\input{sections/3metodologia}
-\input{sections/4analisis}
-\input{sections/5futurework}
+
+\input{sects/1intro}
+\input{sects/2SoA}
+\input{sects/3metodologia}
+\input{sects/4results}
+\input{sects/5conclusiones}
+%\input{sects/anexo}
+
 
 \backmatter
 
 \newpage
 \bibliographystyle{IEEEtran}
-\bibliography{bibliography} % Aquí aparecerá solo lo que citaste con \cite{}
-
-% --- Sección 2: Bibliografía consultada ---
+\bibliography{bibliography}
 \newpage
-\bibliographystyleconsulted{IEEEtran}
-\bibliographyconsulted{bibliography} % Usa el mismo archivo .bib
-\nociteconsulted{*}
+\input{sects/anexo}
 
-\clearemptydoublepage
+%\clearemptydoublepage
 
 \appendix
 
 \include{appendix}
 
 \end{document}
+
+
